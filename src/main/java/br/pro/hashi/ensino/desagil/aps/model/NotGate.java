@@ -5,7 +5,12 @@ public class NotGate extends Gate {
 
 
     public NotGate() {
+<<<<<<< HEAD
         super(1);
+=======
+        super("NOT", 1);
+
+>>>>>>> upstream/master
         nand = new NandGate();
     }
 
