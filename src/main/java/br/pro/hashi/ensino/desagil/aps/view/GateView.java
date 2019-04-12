@@ -4,17 +4,24 @@ import br.pro.hashi.ensino.desagil.aps.model.Gate;
 import br.pro.hashi.ensino.desagil.aps.model.Switch;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.net.URL;
 
-public class GateView extends JPanel implements ItemListener {
+public class GateView extends FixedPanel implements ItemListener, MouseListener {
     private final Switch[] switches;
     private final Gate gate;
 
     private final JCheckBox[] inputBoxes;
-    private final JCheckBox outputBox;
+
+    private final Image image;
+    private Color color;
 
     public GateView(Gate gate) {
+        super(245, 150);
         this.gate = gate;
 
         int inputSize = gate.getInputSize();
@@ -22,6 +29,9 @@ public class GateView extends JPanel implements ItemListener {
         switches = new Switch[inputSize];
         inputBoxes = new JCheckBox[inputSize];
 
+        String name = gate.toString() + ".jpeg";
+        URL url = getClass().getClassLoader().getResource(name);
+        image = getToolkit().getImage(url);
         for (int i = 0; i < inputSize; i++) {
             switches[i] = new Switch();
             inputBoxes[i] = new JCheckBox();
@@ -29,26 +39,19 @@ public class GateView extends JPanel implements ItemListener {
             gate.connect(i, switches[i]);
         }
 
-        outputBox = new JCheckBox();
-
-        JLabel inputLabel = new JLabel("Input");
-        JLabel outputLabel = new JLabel("Output");
-
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        add(inputLabel);
+        int ya = 22;
         for (JCheckBox inputBox : inputBoxes) {
-            add(inputBox);
+            if (inputSize == 1) {
+                add(inputBox, 10, 40, 25, 25);
+            } else {
+                add(inputBox, 10, ya, 25, 25);
+                ya += 40;
+            }
         }
-        add(outputLabel);
-        add(outputBox);
 
         for (JCheckBox inputBox : inputBoxes) {
             inputBox.addItemListener(this);
         }
-
-        outputBox.setEnabled(false);
-
         update();
     }
 
@@ -60,14 +63,50 @@ public class GateView extends JPanel implements ItemListener {
                 switches[i].turnOff();
             }
         }
-
         boolean result = gate.read();
-
-        outputBox.setSelected(result);
+        if (result == true) {
+            color = Color.RED;
+        } else{
+            color = Color.BLACK;
+        }
+        repaint();
     }
 
     @Override
     public void itemStateChanged(ItemEvent event) {
         update();
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(image, 25, 0, 175, 110, this);
+        g.setColor(color);
+        g.fillRoundRect(210, 45, 25, 25, 25, 25);
+        getToolkit().sync();
     }
 }
