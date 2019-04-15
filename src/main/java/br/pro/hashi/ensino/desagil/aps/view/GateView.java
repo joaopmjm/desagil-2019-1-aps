@@ -71,7 +71,6 @@ public class GateView extends FixedPanel implements ItemListener, MouseListener 
         } else{
             light.setR(0);
         }
-        Color color = new Color(light.getR(),light.getG(),light.getB());
         repaint();
     }
 
@@ -84,7 +83,7 @@ public class GateView extends FixedPanel implements ItemListener, MouseListener 
     public void mouseClicked(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        Color color = new Color(light.getR(),light.getG(),light.getB());
+        Color color = new Color(0,0,0);
         if (x > 210 && x < 235 && y > 45 && y < 70){
                 color = JColorChooser.showDialog(this, null, color);
                 light.setR(color.getRed());
