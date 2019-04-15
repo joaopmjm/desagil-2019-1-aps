@@ -17,8 +17,8 @@ public class GateView extends FixedPanel implements ItemListener, MouseListener 
     private final Gate gate;
 
     private final JCheckBox[] inputBoxes;
-    private Light light;
     private final Image image;
+    private Light light;
 
     public GateView(Gate gate) {
         super(245, 150);
@@ -57,7 +57,7 @@ public class GateView extends FixedPanel implements ItemListener, MouseListener 
     }
 
     private void update() {
-        light.connect(0,gate);
+        light.connect(0, gate);
         for (int i = 0; i < gate.getInputSize(); i++) {
             if (inputBoxes[i].isSelected()) {
                 switches[i].turnOn();
@@ -66,9 +66,9 @@ public class GateView extends FixedPanel implements ItemListener, MouseListener 
             }
         }
         boolean result = gate.read();
-        if (result == true) {
+        if (result) {
             light.setR(255);
-        } else{
+        } else {
             light.setR(0);
         }
         repaint();
@@ -83,14 +83,15 @@ public class GateView extends FixedPanel implements ItemListener, MouseListener 
     public void mouseClicked(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        Color color = new Color(0,0,0);
-        if (x > 210 && x < 235 && y > 45 && y < 70){
-                color = JColorChooser.showDialog(this, null, color);
-                light.setR(color.getRed());
-                light.setG(color.getGreen());
-                light.setB(color.getBlue());
-                repaint();
-            }
+        Color color = new Color(0, 0, 0);
+        if (x > 210 && x < 235 && y > 45 && y < 70) {
+            color = JColorChooser.showDialog(this, null, color);
+            light.setR(color.getRed());
+            light.setG(color.getGreen());
+            light.setB(color.getBlue());
+
+        }
+        repaint();
     }
 
     @Override
@@ -116,7 +117,7 @@ public class GateView extends FixedPanel implements ItemListener, MouseListener 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(image, 25, 0, 175, 110, this);
-        Color color = new Color(light.getR(),light.getG(),light.getB());
+        Color color = new Color(light.getR(), light.getG(), light.getB());
         g.setColor(color);
         g.fillRoundRect(210, 45, 25, 25, 25, 25);
         getToolkit().sync();
