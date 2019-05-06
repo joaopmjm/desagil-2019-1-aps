@@ -6,9 +6,13 @@ public class NotGate extends Gate {
 
     public NotGate() {
 <<<<<<< HEAD
+<<<<<<< HEAD
         super(1);
 =======
         super("NOT", 1);
+=======
+        super("NOT", 1, 1);
+>>>>>>> upstream/master
 
 >>>>>>> upstream/master
         nand = new NandGate();
@@ -16,7 +20,10 @@ public class NotGate extends Gate {
 
 
     @Override
-    public boolean read() {
+    public boolean read(int outputPin) {
+        if (outputPin != 0) {
+            throw new IndexOutOfBoundsException(outputPin);
+        }
         return nand.read();
     }
 
