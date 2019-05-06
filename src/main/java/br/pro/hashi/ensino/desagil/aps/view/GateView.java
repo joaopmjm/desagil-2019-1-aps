@@ -52,11 +52,11 @@ public class GateView extends FixedPanel implements ItemListener {
             y += step;
             add(inputBox, x, y, SWITCH_SIZE, SWITCH_SIZE);
         }
-        if (gate.getOutputSize() == 2){
-            add(outputBox[0], BORDER + SWITCH_SIZE + GATE_WIDTH, (GATE_HEIGHT - SWITCH_SIZE)/4, SWITCH_SIZE, SWITCH_SIZE);
+        if (gate.getOutputSize() == 2) {
+            add(outputBox[0], BORDER + SWITCH_SIZE + GATE_WIDTH, (GATE_HEIGHT - SWITCH_SIZE) / 4, SWITCH_SIZE, SWITCH_SIZE);
             add(outputBox[1], BORDER + SWITCH_SIZE + GATE_WIDTH, (GATE_HEIGHT - SWITCH_SIZE), SWITCH_SIZE, SWITCH_SIZE);
-        }else{
-            add(outputBox[0], BORDER + SWITCH_SIZE + GATE_WIDTH, (GATE_HEIGHT - SWITCH_SIZE)/2, SWITCH_SIZE, SWITCH_SIZE);
+        } else {
+            add(outputBox[0], BORDER + SWITCH_SIZE + GATE_WIDTH, (GATE_HEIGHT - SWITCH_SIZE) / 2, SWITCH_SIZE, SWITCH_SIZE);
         }
 
         String name = gate.toString() + ".png";
@@ -80,12 +80,12 @@ public class GateView extends FixedPanel implements ItemListener {
                 switches[i].turnOff();
             }
         }
-        if (gate.getOutputSize() == 2){
-        boolean result0 = gate.read(0);
-        boolean result1 = gate.read(1);
-        outputBox[0].setSelected(result0);
-        outputBox[1].setSelected(result1);
-        }else{
+        if (gate.getOutputSize() == 2) {
+            boolean result0 = gate.read(0);
+            boolean result1 = gate.read(1);
+            outputBox[0].setSelected(result0);
+            outputBox[1].setSelected(result1);
+        } else {
             boolean result = gate.read();
             outputBox[0].setSelected(result);
         }

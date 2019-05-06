@@ -13,15 +13,15 @@ public class HalfAdder extends Gate {
 
         nand0 = new NandGate();
         nand1 = new NandGate();
-        nand1.connect(1,nand0);
+        nand1.connect(1, nand0);
         nand2 = new NandGate();
-        nand2.connect(0,nand0);
+        nand2.connect(0, nand0);
         nand3 = new NandGate();
-        nand3.connect(0,nand1);
-        nand3.connect(1,nand2);
+        nand3.connect(0, nand1);
+        nand3.connect(1, nand2);
         nand4 = new NandGate();
-        nand4.connect(0,nand0);
-        nand4.connect(1,nand0);
+        nand4.connect(0, nand0);
+        nand4.connect(1, nand0);
 
     }
 
@@ -32,7 +32,7 @@ public class HalfAdder extends Gate {
             return nand3.read();
         } else if (outputPin == 1) {
             return nand4.read();
-        }else {
+        } else {
             throw new IndexOutOfBoundsException(outputPin);
         }
     }
@@ -41,9 +41,10 @@ public class HalfAdder extends Gate {
     public void connect(int inputPin, SignalEmitter emitter) {
         if (inputPin == 0) {
             nand0.connect(0, emitter);
-            nand1.connect(0,emitter);
-        }else{
-        nand0.connect(1, emitter);
-        nand2.connect(1, emitter);
+            nand1.connect(0, emitter);
+        } else {
+            nand0.connect(1, emitter);
+            nand2.connect(1, emitter);
+        }
     }
-}}
+}
